@@ -8,6 +8,8 @@ A universal MCP (Model Context Protocol) server that connects **AnythingLLM** to
 
 ---
 
+https://youtu.be/kjoeAsBNPtw
+
 ## ✨ Features
 
 - 🔌 **Universal** — drop any ComfyUI workflow `.json` in the folder, it becomes an MCP tool automatically
