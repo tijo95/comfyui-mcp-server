@@ -108,6 +108,44 @@ def show_tkinter_popup(image_path: Path, prompt: str, seed, width, height, steps
             root.attributes("-topmost", True)
             root.resizable(False, False)
 
+            # Supprime la barre de titre Windows native
+            root.overrideredirect(True)
+
+            # ── Barre de titre personnalisée ───────────────────────────
+            title_bar = tk.Frame(root, bg='#0d1117', height=32)
+            title_bar.pack(fill='x', side='top')
+            title_bar.pack_propagate(False)
+
+            tk.Label(
+                title_bar, text='✨  ComfyUI — Image générée',
+                bg='#0d1117', fg='#4ecca3',
+                font=('Segoe UI', 9, 'bold')
+            ).pack(side='left', padx=10)
+
+            tk.Button(
+                title_bar, text='✕', command=on_close,
+                bg='#0d1117', fg='#64748b',
+                font=('Segoe UI', 10, 'bold'),
+                relief='flat', padx=8, pady=0,
+                cursor='hand2', activebackground='#c0392b',
+                activeforeground='white', bd=0
+            ).pack(side='right', padx=4, pady=4)
+
+            # Fenêtre déplaçable depuis la barre de titre
+            def start_drag(event):
+                root._drag_x = event.x_root - root.winfo_x()
+                root._drag_y = event.y_root - root.winfo_y()
+
+            def do_drag(event):
+                root.geometry(f'+{event.x_root - root._drag_x}+{event.y_root - root._drag_y}')
+
+            title_bar.bind('<ButtonPress-1>', start_drag)
+            title_bar.bind('<B1-Motion>', do_drag)
+            for child in title_bar.winfo_children():
+                child.bind('<ButtonPress-1>', start_drag)
+                child.bind('<B1-Motion>', do_drag)
+
+
             # ── Liste de toutes les images du dossier (triées par date) ───
             all_images = sorted(OUTPUT_FOLDER.glob("*.png"), key=os.path.getmtime)
             if not all_images:
@@ -122,12 +160,7 @@ def show_tkinter_popup(image_path: Path, prompt: str, seed, width, height, steps
             # État mutable partagé entre les callbacks
             state = {"index": current_index}
 
-            # ── Titre ─────────────────────────────────────────────────────
-            tk.Label(
-                root, text="✨ GÉNÉRATION TERMINÉE",
-                bg="#0f0f14", fg="#4ecca3",
-                font=("Segoe UI", 10, "bold"), pady=8
-            ).pack()
+
 
             # ── Image cliquable ───────────────────────────────────────────
             img_label = tk.Label(root, bg="#000000", cursor="hand2")
