@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "comfyui": {
+      "command": "python",
+      "args": [
+        "D:\\MCP\\comfyui_mcp_server.py"
+      ],
+      "env": {}
+    }
+  }
+}
