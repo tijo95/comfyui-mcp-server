@@ -8,7 +8,7 @@ A universal MCP (Model Context Protocol) server that connects **AnythingLLM** to
 
 ---
 
-https://youtu.be/kjoeAsBNPtw
+[![Démonstration ComfyUI MCP Server](https://img.youtube.com/vi/kjoeAsBNPtw/maxresdefault.jpg)](https://youtu.be/kjoeAsBNPtw)
 
 ## ✨ Features
 
